@@ -18,7 +18,7 @@ const sidebarItems = [
     title: 'Buttons', 
     path: '/buttons', 
     icon: Mouse,
-    items: ['Checkbox', 'Radio', 'Input', 'File Upload', 'Select Dropdown']
+    
   },
   { 
     title: 'Input & Selection', 
@@ -29,8 +29,7 @@ const sidebarItems = [
   { 
     title: 'Header & Navigation', 
     path: '/navigation', 
-    icon: List,
-    items: ['Header', 'Side Navigation', 'Breadcrumb', 'Links', 'Footer Navigation']
+    icon: List
   },
   { 
     title: 'Typography', 
@@ -118,14 +117,42 @@ const Sidebar: React.FC = () => {
                 
                 {hasSubItems && isExpanded && (
                   <div className="ml-8 mt-1 space-y-1">
-                    {item.items?.map((subItem) => (
-                      <div
-                        key={subItem}
-                        className="px-3 py-1 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 cursor-pointer"
-                      >
-                        {subItem}
-                      </div>
-                    ))}
+                    {item.items?.map((subItem) => {
+                      // Create navigation paths for sub-items
+                      const getSubItemPath = (subItem: string) => {
+                        switch (subItem.toLowerCase()) {
+                          case 'checkbox':
+                            return '/checkbox';
+                          case 'radio':
+                            return '/radio';
+                          case 'input':
+                            return '/input';
+                          case 'file upload':
+                            return '/file-upload';
+                          case 'select dropdown':
+                            return '/select-dropdown';
+                          default:
+                            return item.path;
+                        }
+                      };
+
+                      const subItemPath = getSubItemPath(subItem);
+                      const isSubItemActive = location.pathname === subItemPath;
+
+                      return (
+                        <Link
+                          key={subItem}
+                          to={subItemPath}
+                          className={`block px-3 py-1 text-sm transition-colors cursor-pointer ${
+                            isSubItemActive
+                              ? 'text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-900/20'
+                              : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                          }`}
+                        >
+                          {subItem}
+                        </Link>
+                      );
+                    })}
                   </div>
                 )}
               </div>
