@@ -12,6 +12,10 @@ import ColorsPage from './pages/ColorsPage';
 import PopupModalPage from './pages/PopupModalPage';
 import ModuleListingPage from './pages/ModuleListingPage';
 import AccordionPage from './pages/AccordionPage';
+import CheckboxPage from './pages/CheckboxPage';
+import RadioPage from './pages/RadioPage';
+import FileUploadPage from './pages/FileUploadPage';
+import SelectDropdownPage from './pages/SelectDropdownPage';
 import Overview from './pages/Overview';
 
 function App() {
@@ -31,6 +35,10 @@ function App() {
           <Route path="/modal" element={<PopupModalPage />} />
           <Route path="/module-listing" element={<ModuleListingPage />} />
           <Route path="/accordion" element={<AccordionPage />} />
+          <Route path="/checkbox" element={<CheckboxPage />} />
+          <Route path="/radio" element={<RadioPage />} />
+          <Route path="/file-upload" element={<FileUploadPage />} />
+          <Route path="/select-dropdown" element={<SelectDropdownPage />} />
         </Routes>
       </Layout>
     </Router>

@@ -4,6 +4,7 @@ import { X, Copy, Sparkles, Eye, Code } from 'lucide-react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { Button } from '../Button/Button';
+import { ChatbotModal } from './ChatbotModal';
 
 interface ComponentModalProps {
   isOpen: boolean;
@@ -24,6 +25,7 @@ export const ComponentModal: React.FC<ComponentModalProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<'preview' | 'code'>('preview');
   const [codeType, setCodeType] = useState<'html' | 'react'>('react');
+  const [chatbotOpen, setChatbotOpen] = useState(false);
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -31,8 +33,7 @@ export const ComponentModal: React.FC<ComponentModalProps> = ({
   };
 
   const handleRemixWithAI = () => {
-    // This would integrate with an AI service
-    alert('AI Remix feature would be integrated here!');
+    setChatbotOpen(true);
   };
 
   return (
@@ -138,6 +139,14 @@ export const ComponentModal: React.FC<ComponentModalProps> = ({
           </div>
         </Dialog.Panel>
       </div>
+
+      {/* Chatbot Modal */}
+      <ChatbotModal
+        isOpen={chatbotOpen}
+        onClose={() => setChatbotOpen(false)}
+        componentTitle={title}
+        componentCode={codeType === 'html' ? htmlCode : reactCode}
+      />
     </Dialog>
   );
 };
