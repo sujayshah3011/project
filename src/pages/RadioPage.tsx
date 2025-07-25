@@ -639,4 +639,211 @@ const RadioPage: React.FC = () => {
   );
 };
 
+// ===========================
+// DOCUMENTATION
+// ===========================
+
+/**
+ * COMPONENTS USED IN RADIOPAGE
+ * 
+ * This page showcases radio button implementations with various sizes, states,
+ * and grouping patterns. Radio buttons enforce single selection within groups,
+ * making them ideal for mutually exclusive choices.
+ */
+
+/**
+ * 📛 Component: RadioButton
+ * 🧩 Purpose: Individual radio button component with customizable appearance and behavior
+ * 
+ * ⚙️ Props:
+ * - name: string (required)
+ *   HTML name attribute for grouping radio buttons
+ * 
+ * - value: string (required)
+ *   Unique value for this radio option
+ * 
+ * - checked: boolean (required)
+ *   Whether this radio button is currently selected
+ * 
+ * - onChange: (value: string) => void (required)
+ *   Callback function called when radio button is selected
+ * 
+ * - label: string (required)
+ *   Text label displayed next to the radio button
+ * 
+ * - disabled?: boolean = false
+ *   Disables interaction and applies disabled styling
+ * 
+ * - size?: 'small' | 'medium' | 'large' = 'medium'
+ *   Controls the size of the radio button and inner dot
+ * 
+ * 🧪 Usage Examples:
+ * ```tsx
+ * // Basic radio button
+ * <RadioButton
+ *   name="payment"
+ *   value="credit"
+ *   checked={selected === 'credit'}
+ *   onChange={setSelected}
+ *   label="Credit Card"
+ * />
+ * 
+ * // Large disabled radio
+ * <RadioButton
+ *   name="plan"
+ *   value="premium"
+ *   checked={false}
+ *   onChange={() => {}}
+ *   label="Premium Plan (Coming Soon)"
+ *   disabled={true}
+ *   size="large"
+ * />
+ * ```
+ * 
+ * 📌 Notes:
+ * - Uses sr-only input for accessibility with custom visual design
+ * - Purple color scheme matches design system
+ * - Size affects both outer circle and inner dot proportionally
+ * - Hover states only apply when not disabled
+ * - Label clicking selects the radio button
+ * - Supports dark mode theming
+ */
+
+/**
+ * 📛 Component: RadioGroup
+ * 🧩 Purpose: Container component for managing groups of related radio buttons
+ * 
+ * ⚙️ Props:
+ * - name: string (required)
+ *   Shared name for all radio buttons in the group
+ * 
+ * - options: Array<{value: string, label: string, disabled?: boolean}> (required)
+ *   Array of radio button options
+ * 
+ * - value: string (required)
+ *   Currently selected value in the group
+ * 
+ * - onChange: (value: string) => void (required)
+ *   Callback when selection changes
+ * 
+ * - label: string (required)
+ *   Group label displayed above radio buttons
+ * 
+ * - direction?: 'vertical' | 'horizontal' = 'vertical'
+ *   Layout direction for radio buttons
+ * 
+ * 🧪 Usage Example:
+ * ```tsx
+ * <RadioGroup
+ *   name="shipping"
+ *   label="Shipping Method"
+ *   options={[
+ *     { value: 'standard', label: 'Standard (5-7 days)' },
+ *     { value: 'express', label: 'Express (2-3 days)' },
+ *     { value: 'overnight', label: 'Overnight' }
+ *   ]}
+ *   value={shippingMethod}
+ *   onChange={setShippingMethod}
+ *   direction="vertical"
+ * />
+ * ```
+ * 
+ * 📌 Notes:
+ * - Manages radio button grouping and mutual exclusion
+ * - Consistent spacing and alignment
+ * - Supports both vertical and horizontal layouts
+ * - Individual options can be disabled while maintaining group functionality
+ */
+
+/**
+ * 📛 Icons: CheckCircle, Info, AlertCircle (from lucide-react)
+ * 🧩 Purpose: Provide visual indicators for different types of content and messaging
+ * 
+ * ⚙️ Component Usage:
+ * - CheckCircle: Used for feature highlights and positive indicators
+ * - Info: Used for informational content and best practices
+ * - AlertCircle: Used for warnings and important distinctions
+ * 
+ * 🧪 Usage Examples:
+ * ```tsx
+ * // Feature highlight
+ * <CheckCircle className="w-4 h-4 text-green-600 mr-2 mt-0.5 flex-shrink-0" />
+ * 
+ * // Information point
+ * <Info className="w-4 h-4 text-blue-600 mr-2 mt-0.5 flex-shrink-0" />
+ * 
+ * // Warning message
+ * <AlertCircle className="w-5 h-5 text-yellow-600 mr-3 mt-0.5 flex-shrink-0" />
+ * ```
+ * 
+ * 📌 Notes:
+ * - Color coding: green for success/features, blue for info, yellow for warnings
+ * - flex-shrink-0 prevents distortion in flex layouts
+ * - mt-0.5 aligns icons with first line of text
+ * - Consistent sizing within content type (w-4 h-4 for lists, w-5 h-5 for callouts)
+ */
+
+/**
+ * 📛 Pattern: Radio Button State Management
+ * 🧩 Purpose: Demonstrates proper state management for single-selection scenarios
+ * 
+ * ⚙️ Implementation:
+ * - String state variables for each group
+ * - onChange handlers update selected value
+ * - Checked state computed by comparing current value to selected value
+ * 
+ * 🧪 Usage Example:
+ * ```tsx
+ * const [selectedPayment, setSelectedPayment] = useState('credit');
+ * 
+ * const paymentOptions = [
+ *   { value: 'credit', label: 'Credit Card' },
+ *   { value: 'debit', label: 'Debit Card' },
+ *   { value: 'paypal', label: 'PayPal' }
+ * ];
+ * 
+ * {paymentOptions.map(option => (
+ *   <RadioButton
+ *     key={option.value}
+ *     name="payment"
+ *     value={option.value}
+ *     checked={selectedPayment === option.value}
+ *     onChange={setSelectedPayment}
+ *     label={option.label}
+ *   />
+ * ))}
+ * ```
+ * 
+ * 📌 Notes:
+ * - Single source of truth for group selection
+ * - Automatic mutual exclusion through shared name attribute
+ * - Easy to validate and submit form data
+ * - Scalable pattern for any number of options
+ */
+
+/**
+ * 📛 Pattern: Responsive Radio Button Layouts
+ * 🧩 Purpose: Adapts radio button groups to different screen sizes and contexts
+ * 
+ * ⚙️ Implementation:
+ * - CSS Grid and Flexbox for responsive layouts
+ * - Conditional classes based on screen size
+ * - Proper spacing and alignment across devices
+ * 
+ * 🧪 Usage Example:
+ * ```tsx
+ * <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+ *   {options.map(option => (
+ *     <RadioButton ... />
+ *   ))}
+ * </div>
+ * ```
+ * 
+ * 📌 Notes:
+ * - Mobile-first approach with progressive enhancement
+ * - Maintains usability across all device sizes
+ * - Consistent touch targets for mobile devices
+ * - Readable labels and adequate spacing
+ */
+
 export default RadioPage;

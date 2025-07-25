@@ -1,6 +1,109 @@
 import React, { useState } from 'react';
 import { ComponentModal } from '../components/Modal/ComponentModal';
 import { User } from 'lucide-react';
+import Documentation from '../components/Documentation/Documentation';
+
+const avatarDocumentation = {
+  title: "Avatar Component",
+  description: "Avatar components represent users or entities with profile images, initials, or placeholder icons. They provide visual identity and context in user interfaces.",
+  components: [
+    {
+      name: "Avatar",
+      purpose: "Display user profile images, initials, or placeholder icons with consistent sizing and styling",
+      props: [
+        {
+          name: "size",
+          type: "'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'",
+          default: "'md'",
+          description: "Controls the avatar size and proportions"
+        },
+        {
+          name: "src",
+          type: "string",
+          description: "URL source for the profile image"
+        },
+        {
+          name: "name",
+          type: "string",
+          description: "User's name - used for initials when no image is provided"
+        },
+        {
+          name: "showStatus",
+          type: "boolean",
+          default: "false",
+          description: "Displays online status indicator as green dot"
+        }
+      ],
+      examples: [
+        {
+          title: "Image Avatar",
+          code: `<Avatar size="md" src="/profile.jpg" name="John Doe" />`,
+          description: "Avatar displaying user's profile image"
+        },
+        {
+          title: "Initials Avatar",
+          code: `<Avatar size="md" name="John Doe" />`,
+          description: "Avatar showing user's initials when no image is available"
+        },
+        {
+          title: "Placeholder Avatar",
+          code: `<Avatar size="md" />`,
+          description: "Generic user icon when no name or image is provided"
+        },
+        {
+          title: "Status Avatar",
+          code: `<Avatar size="md" src="/profile.jpg" name="John Doe" showStatus />`,
+          description: "Avatar with online status indicator"
+        }
+      ],
+      notes: [
+        "Automatically falls back to initials if image fails to load",
+        "Initials are generated from the first letter of each word in the name",
+        "Placeholder icon is shown when no name or image is available",
+        "Status indicator appears as a green dot in the bottom-right corner",
+        "All sizes maintain proper aspect ratios and visual consistency"
+      ]
+    }
+  ],
+  patterns: [
+    {
+      name: "Avatar Sizing",
+      purpose: "Provide consistent avatar sizes across different UI contexts",
+      implementation: [
+        "Extra Small (xs): 24px - Use in dense lists or small UI elements",
+        "Small (sm): 32px - Use in compact layouts or secondary content",
+        "Medium (md): 40px - Default size for most use cases",
+        "Large (lg): 48px - Use in user profiles or prominent displays",
+        "Extra Large (xl): 64px - Use in profile headers or featured content",
+        "2X Large (2xl): 80px - Use in main profile sections or hero areas"
+      ],
+      example: `<div className="flex items-center gap-4">
+  <Avatar size="xs" name="User" />
+  <Avatar size="sm" name="User" />
+  <Avatar size="md" name="User" />
+  <Avatar size="lg" name="User" />
+</div>`
+    },
+    {
+      name: "Fallback Hierarchy",
+      purpose: "Graceful degradation when profile images are unavailable",
+      implementation: [
+        "Primary: Display provided image source",
+        "Secondary: Show initials from user's name",
+        "Tertiary: Display generic user placeholder icon",
+        "All fallbacks maintain consistent visual styling"
+      ],
+      example: `// Image -> Initials -> Icon fallback
+<Avatar src="/broken-image.jpg" name="John Doe" />
+// Will show "JD" if image fails to load`,
+      notes: [
+        "Initials are automatically generated from name prop",
+        "Fallback transition is seamless and maintains layout stability",
+        "Consistent background colors across all avatar states"
+      ]
+    }
+  ]
+};
 
 const AvatarPage: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -238,6 +341,14 @@ const AvatarPage: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Documentation Section */}
+      <Documentation 
+        title={avatarDocumentation.title}
+        description={avatarDocumentation.description}
+        components={avatarDocumentation.components}
+        patterns={avatarDocumentation.patterns}
+      />
 
       <ComponentModal
         isOpen={modalOpen}

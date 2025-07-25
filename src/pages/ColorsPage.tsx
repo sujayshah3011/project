@@ -1,6 +1,116 @@
 import React, { useState } from 'react';
 import { ComponentModal } from '../components/Modal/ComponentModal';
 import { Copy } from 'lucide-react';
+import Documentation from '../components/Documentation/Documentation';
+
+const colorsDocumentation = {
+  title: "Color System",
+  description: "A comprehensive color palette providing consistent design tokens for building cohesive user interfaces. Colors are organized by purpose and provide multiple shades for different use cases.",
+  components: [
+    {
+      name: "ColorSwatch",
+      purpose: "Display individual color values with interactive copy functionality",
+      props: [
+        {
+          name: "hex",
+          type: "string",
+          description: "Hexadecimal color value (e.g., '#0ea5e9')"
+        },
+        {
+          name: "rgb",
+          type: "string",
+          description: "RGB color values (e.g., '14, 165, 233')"
+        },
+        {
+          name: "shade",
+          type: "string",
+          description: "Shade number (50, 100, 200, ..., 900, 950)"
+        },
+        {
+          name: "onClick",
+          type: "function",
+          description: "Callback function when swatch is clicked"
+        }
+      ],
+      examples: [
+        {
+          title: "Basic Color Swatch",
+          code: `<ColorSwatch hex="#0ea5e9" rgb="14, 165, 233" shade="500" />`,
+          description: "Interactive color swatch displaying hex and RGB values"
+        }
+      ],
+      notes: [
+        "Click any swatch to copy hex value to clipboard",
+        "Hover states provide visual feedback",
+        "Consistent sizing and layout across all color families",
+        "Accessibility-compliant contrast ratios"
+      ]
+    }
+  ],
+  patterns: [
+    {
+      name: "Color Palette Structure",
+      purpose: "Organize colors by semantic meaning and provide predictable shade variations",
+      implementation: [
+        "Primary: Main brand colors (blue family) - 50 through 950 shades",
+        "Gray: Neutral colors for text, borders, backgrounds",
+        "Success: Green family for positive states and confirmations",
+        "Warning: Yellow/orange family for caution and attention",
+        "Error: Red family for errors, destructive actions, alerts",
+        "Each family provides 10 shades from lightest (50) to darkest (950)"
+      ],
+      example: `// Using color tokens in components
+<div className="bg-primary-500 text-white">Primary action</div>
+<div className="bg-gray-100 text-gray-800">Neutral content</div>
+<div className="bg-success-100 text-success-800 border border-success-200">
+  Success message
+</div>`
+    },
+    {
+      name: "Semantic Color Usage",
+      purpose: "Apply colors consistently based on meaning rather than appearance",
+      implementation: [
+        "Primary colors: Call-to-action buttons, links, active states",
+        "Gray colors: Text hierarchy, borders, subtle backgrounds",
+        "Success colors: Confirmation messages, completed states",
+        "Warning colors: Caution states, pending actions",
+        "Error colors: Error messages, destructive actions, validation"
+      ],
+      example: `// Semantic color application
+<Button className="bg-primary-600 hover:bg-primary-700">
+  Primary Action
+</Button>
+<Alert className="bg-error-50 border-error-200 text-error-800">
+  Error message
+</Alert>`,
+      notes: [
+        "Lighter shades (50-200) for backgrounds and subtle elements",
+        "Medium shades (300-600) for main UI elements and buttons",
+        "Darker shades (700-950) for text and high contrast elements",
+        "Consistent contrast ratios maintained across all combinations"
+      ]
+    },
+    {
+      name: "Dark Mode Adaptation",
+      purpose: "Provide appropriate color variations for dark theme interfaces",
+      implementation: [
+        "Invert shade relationships: light themes use 50-300, dark themes use 700-950",
+        "Maintain semantic meaning across theme variants",
+        "Adjust opacity and blend modes for optimal contrast",
+        "Preserve brand identity while ensuring readability"
+      ],
+      example: `// Theme-aware color classes
+<div className="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+  Adaptive content
+</div>`,
+      notes: [
+        "Test all color combinations in both light and dark modes",
+        "Ensure sufficient contrast ratios in all theme variants",
+        "Use CSS custom properties for dynamic theme switching"
+      ]
+    }
+  ]
+};
 
 const ColorsPage: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -206,6 +316,14 @@ const ColorsPage: React.FC = () => {
         </div>
       </section>
 
+      {/* Documentation Section */}
+      <Documentation 
+        title={colorsDocumentation.title}
+        description={colorsDocumentation.description}
+        components={colorsDocumentation.components}
+        patterns={colorsDocumentation.patterns}
+      />
+
       <ComponentModal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
@@ -217,5 +335,181 @@ const ColorsPage: React.FC = () => {
     </div>
   );
 };
+
+// ===========================
+// DOCUMENTATION
+// ===========================
+
+/**
+ * COMPONENTS USED IN COLORSPAGE
+ * 
+ * This page showcases the design system's color palette and demonstrates
+ * how colors are applied across different UI components. It serves as
+ * a reference guide for color usage and accessibility considerations.
+ */
+
+/**
+ * 📛 Component: ColorSwatch
+ * 🧩 Purpose: Individual color display component with metadata and copy functionality
+ * 
+ * ⚙️ Props (Implicit from usage):
+ * - shade: string
+ *   Color shade identifier (e.g., '50', '100', '500', '900')
+ * 
+ * - hex: string
+ *   Hexadecimal color value (e.g., '#7c3aed')
+ * 
+ * - rgb: string
+ *   RGB color values (e.g., '124, 58, 237')
+ * 
+ * - onClick: () => void
+ *   Click handler for copy functionality
+ * 
+ * 🧪 Usage Example:
+ * ```tsx
+ * <div className="group cursor-pointer" onClick={() => copyColor('#7c3aed')}>
+ *   <div className="w-16 h-16 bg-purple-700 border"></div>
+ *   <div className="text-center">
+ *     <p className="text-sm font-medium">700</p>
+ *     <p className="text-xs text-gray-600">#7c3aed</p>
+ *   </div>
+ * </div>
+ * ```
+ * 
+ * 📌 Notes:
+ * - Visual hover feedback with group utilities
+ * - Click-to-copy functionality for designer/developer workflow
+ * - Consistent sizing and typography
+ * - Supports both hex and RGB value display
+ * - Border for light colors to maintain visibility
+ */
+
+/**
+ * 📛 Data Structure: colorPalettes
+ * 🧩 Purpose: Structured color data for the design system
+ * 
+ * ⚙️ Structure:
+ * - Organized by color family (primary, purple, gray, etc.)
+ * - Each family contains name and colors array
+ * - Color objects include shade, hex, and rgb values
+ * - Follows standard design token conventions
+ * 
+ * 🧪 Usage Example:
+ * ```tsx
+ * const colorPalettes = {
+ *   primary: {
+ *     name: 'Primary',
+ *     colors: [
+ *       { shade: '500', hex: '#0ea5e9', rgb: '14, 165, 233' },
+ *       // ... more shades
+ *     ]
+ *   }
+ * };
+ * ```
+ * 
+ * 📌 Notes:
+ * - Standardized shade scale from 50 (lightest) to 900 (darkest)
+ * - Includes both primary brand colors and neutral grays
+ * - RGB values useful for CSS custom properties and calculations
+ * - Extensible structure for additional color families
+ */
+
+/**
+ * 📛 Icon: Copy (from lucide-react)
+ * 🧩 Purpose: Indicates copy-to-clipboard functionality
+ * 
+ * ⚙️ Usage:
+ * - Provides visual cue for interactive color swatches
+ * - Appears on hover to indicate clickable functionality
+ * - Standard size and positioning for consistency
+ * 
+ * 🧪 Usage Example:
+ * ```tsx
+ * <Copy className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+ * ```
+ * 
+ * 📌 Notes:
+ * - Opacity transition provides smooth interaction feedback
+ * - Group hover shows icon only when relevant
+ * - Consistent with other copy actions throughout the application
+ */
+
+/**
+ * 📛 Pattern: Color Application Examples
+ * 🧩 Purpose: Demonstrates practical color usage in UI components
+ * 
+ * ⚙️ Implementation:
+ * - Button examples with primary, success, and error states
+ * - Alert components with semantic color coding
+ * - Text examples showing hierarchy and contrast
+ * 
+ * 🧪 Usage Examples:
+ * ```tsx
+ * // Semantic button colors
+ * <button className="bg-purple-600 text-white hover:bg-purple-700">
+ *   Primary Action
+ * </button>
+ * 
+ * // Alert with semantic colors
+ * <div className="p-3 bg-green-50 border border-green-200 text-green-800">
+ *   Success message
+ * </div>
+ * ```
+ * 
+ * 📌 Notes:
+ * - Follows semantic color conventions (green=success, red=error, etc.)
+ * - Maintains proper contrast ratios for accessibility
+ * - Hover states use darker shades for interactive feedback
+ * - Background and border colors coordinate for cohesive appearance
+ */
+
+/**
+ * 📛 Pattern: Color Copy Functionality
+ * 🧩 Purpose: Enables designers and developers to easily copy color values
+ * 
+ * ⚙️ Implementation:
+ * - Click handlers on color swatches
+ * - Navigator clipboard API for copying
+ * - Visual feedback for successful copy operations
+ * 
+ * 🧪 Usage Example:
+ * ```tsx
+ * const copyColor = (color: string) => {
+ *   navigator.clipboard.writeText(color);
+ *   // Optional: Show toast notification
+ * };
+ * ```
+ * 
+ * 📌 Notes:
+ * - Improves designer-developer handoff
+ * - Supports workflow integration with design tools
+ * - Could be enhanced with toast notifications for user feedback
+ * - Works with both hex and RGB formats
+ */
+
+/**
+ * 📛 Pattern: Responsive Color Grid
+ * 🧩 Purpose: Displays color palettes in an organized, responsive layout
+ * 
+ * ⚙️ Implementation:
+ * - CSS Grid for flexible color swatch arrangement
+ * - Responsive breakpoints for different screen sizes
+ * - Consistent spacing and alignment
+ * 
+ * 🧪 Usage Example:
+ * ```tsx
+ * <div className="grid grid-cols-5 md:grid-cols-10 gap-2">
+ *   {colors.map(color => (
+ *     <ColorSwatch key={color.shade} {...color} />
+ *   ))}
+ * </div>
+ * ```
+ * 
+ * 📌 Notes:
+ * - Adapts to different screen sizes gracefully
+ * - Maintains color relationships and comparisons
+ * - Easy to scan and compare different shades
+ * - Scalable for additional color families
+ */
 
 export default ColorsPage;
