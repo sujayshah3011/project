@@ -9,6 +9,7 @@ import StatusPage from './pages/StatusPage';
 import AvatarPage from './pages/AvatarPage';
 import NavigationPage from './pages/NavigationPage';
 import ColorsPage from './pages/ColorsPage';
+import PopupModalPage from './pages/PopupModalPage';
 import Overview from './pages/Overview';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path="/avatar" element={<AvatarPage />} />
           <Route path="/navigation" element={<NavigationPage />} />
           <Route path="/colors" element={<ColorsPage />} />
+          <Route path="/modal" element={<PopupModalPage />} />
         </Routes>
       </Layout>
     </Router>
