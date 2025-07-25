@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
+import { ThemeProvider } from './context/ThemeContext';
 import ButtonPage from './pages/ButtonPage';
 import InputPage from './pages/InputPage';
 import TypographyPage from './pages/TypographyPage';
@@ -20,12 +21,14 @@ import Overview from './pages/Overview';
 import DesignSystemPage from './pages/DesignSystemPage';
 import TablePage from './pages/TablePage';
 import NotificationPage from './pages/NotificationPage';
+import RemixAIPage from './pages/RemixAIPage';
 
 function App() {
   return (
-    <Router>
-      <Layout>
-        <Routes>
+    <ThemeProvider>
+      <Router>
+        <Layout>
+          <Routes>
           <Route path="/" element={<Overview />} />
           <Route path="/buttons" element={<ButtonPage />} />
           <Route path="/input" element={<InputPage />} />
@@ -45,9 +48,11 @@ function App() {
           <Route path="/design-system" element={<DesignSystemPage />} />
           <Route path="/table" element={<TablePage />} />
           <Route path="/notifications" element={<NotificationPage />} />
+          <Route path="/remix-ai" element={<RemixAIPage />} />
         </Routes>
-      </Layout>
-    </Router>
+        </Layout>
+      </Router>
+    </ThemeProvider>
   );
 }
 
