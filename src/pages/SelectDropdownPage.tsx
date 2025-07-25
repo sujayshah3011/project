@@ -724,4 +724,246 @@ const SelectDropdownPage: React.FC = () => {
   );
 };
 
+// ===========================
+// DOCUMENTATION
+// ===========================
+
+/**
+ * COMPONENTS USED IN SELECTDROPDOWNPAGE
+ * 
+ * This page demonstrates various select dropdown implementations including basic selects,
+ * multi-select functionality, searchable dropdowns, and different states. All components
+ * are custom-built with accessibility and user experience in mind.
+ */
+
+/**
+ * 📛 Component: BasicSelect
+ * 🧩 Purpose: Core dropdown select component with customizable options and states
+ * 
+ * ⚙️ Props:
+ * - options: Array<{value: string, label: string, disabled?: boolean}> (required)
+ *   Array of selectable options with optional disabled state
+ * 
+ * - value: string (required)
+ *   Currently selected value
+ * 
+ * - onChange: (value: string) => void (required)
+ *   Callback function called when selection changes
+ * 
+ * - placeholder?: string = "Select an option"
+ *   Text shown when no option is selected
+ * 
+ * - disabled?: boolean = false
+ *   Disables the entire select component
+ * 
+ * - error?: boolean = false
+ *   Applies error styling (red border and text)
+ * 
+ * 🧪 Usage Examples:
+ * ```tsx
+ * // Basic dropdown
+ * <BasicSelect
+ *   options={[
+ *     { value: 'us', label: 'United States' },
+ *     { value: 'ca', label: 'Canada' },
+ *     { value: 'uk', label: 'United Kingdom' }
+ *   ]}
+ *   value={selectedCountry}
+ *   onChange={setSelectedCountry}
+ *   placeholder="Choose a country"
+ * />
+ * 
+ * // Error state
+ * <BasicSelect
+ *   options={statusOptions}
+ *   value={status}
+ *   onChange={setStatus}
+ *   error={true}
+ *   placeholder="Status is required"
+ * />
+ * ```
+ * 
+ * 📌 Notes:
+ * - Uses custom dropdown implementation for consistent styling
+ * - Includes click-outside handling to close dropdown
+ * - Keyboard navigation support (Enter, Escape)
+ * - Visual feedback for selected, hovered, and disabled options
+ * - Error state overrides normal border styling
+ * - Chevron icon indicates dropdown state (open/closed)
+ */
+
+/**
+ * 📛 Component: MultiSelect
+ * 🧩 Purpose: Dropdown that allows selection of multiple options with tag display
+ * 
+ * ⚙️ Props:
+ * - options: Array<{value: string, label: string}> (required)
+ *   Available options for selection
+ * 
+ * - values: string[] (required)
+ *   Array of currently selected values
+ * 
+ * - onChange: (values: string[]) => void (required)
+ *   Callback with updated selection array
+ * 
+ * - placeholder?: string = "Select options"
+ *   Text shown when no options are selected
+ * 
+ * 🧪 Usage Example:
+ * ```tsx
+ * <MultiSelect
+ *   options={[
+ *     { value: 'react', label: 'React' },
+ *     { value: 'vue', label: 'Vue.js' },
+ *     { value: 'angular', label: 'Angular' }
+ *   ]}
+ *   values={selectedFrameworks}
+ *   onChange={setSelectedFrameworks}
+ *   placeholder="Choose frameworks"
+ * />
+ * ```
+ * 
+ * 📌 Notes:
+ * - Selected options display as removable tags
+ * - Clicking option toggles selection (add/remove)
+ * - Individual tag removal with X button
+ * - Maintains dropdown open state during selection
+ * - Responsive layout for tag display
+ */
+
+/**
+ * 📛 Component: SearchableSelect
+ * 🧩 Purpose: Select dropdown with built-in search/filter functionality
+ * 
+ * ⚙️ Props:
+ * - options: Array<{value: string, label: string}> (required)
+ *   Full list of available options
+ * 
+ * - value: string (required)
+ *   Currently selected value
+ * 
+ * - onChange: (value: string) => void (required)
+ *   Callback when selection changes
+ * 
+ * - placeholder?: string = "Search and select"
+ *   Placeholder text for search input
+ * 
+ * 🧪 Usage Example:
+ * ```tsx
+ * <SearchableSelect
+ *   options={cities.map(city => ({
+ *     value: city.id,
+ *     label: city.name
+ *   }))}
+ *   value={selectedCity}
+ *   onChange={setSelectedCity}
+ *   placeholder="Search for a city"
+ * />
+ * ```
+ * 
+ * 📌 Notes:
+ * - Input field filters options in real-time
+ * - Case-insensitive search matching
+ * - Search icon provides visual context
+ * - Clears search when option selected
+ * - Falls back to "No options found" when search yields no results
+ */
+
+/**
+ * 📛 Icons: ChevronDown, Check, Search, X, Info, AlertCircle (from lucide-react)
+ * 🧩 Purpose: Provide visual cues and functionality within select components
+ * 
+ * ⚙️ Component Usage:
+ * - ChevronDown: Indicates dropdown state and clickable area
+ * - Check: Shows selected option in dropdown list
+ * - Search: Indicates search functionality
+ * - X: Removes individual selections in multi-select
+ * - Info: Used for best practices and guidance
+ * - AlertCircle: Used for important notices and alternatives
+ * 
+ * 🧪 Usage Examples:
+ * ```tsx
+ * // Dropdown indicator
+ * <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+ * 
+ * // Selected option marker
+ * {isSelected && <Check className="w-4 h-4 text-purple-600" />}
+ * 
+ * // Remove tag button
+ * <X className="w-3 h-3 hover:text-red-600" />
+ * ```
+ * 
+ * 📌 Notes:
+ * - Consistent sizing across similar use cases
+ * - Transition animations for state changes
+ * - Color coding: purple for selection, red for removal
+ * - Proper hover states for interactive icons
+ */
+
+/**
+ * 📛 Hook: useRef & useEffect (for outside click handling)
+ * 🧩 Purpose: Manages dropdown state and outside click detection
+ * 
+ * ⚙️ Implementation:
+ * - useRef creates reference to dropdown container
+ * - useEffect adds/removes document click listener
+ * - Click outside closes dropdown
+ * 
+ * 🧪 Usage Example:
+ * ```tsx
+ * const selectRef = useRef<HTMLDivElement>(null);
+ * 
+ * useEffect(() => {
+ *   const handleClickOutside = (event: MouseEvent) => {
+ *     if (selectRef.current && !selectRef.current.contains(event.target as Node)) {
+ *       setIsOpen(false);
+ *     }
+ *   };
+ *   
+ *   document.addEventListener('mousedown', handleClickOutside);
+ *   return () => document.removeEventListener('mousedown', handleClickOutside);
+ * }, []);
+ * ```
+ * 
+ * 📌 Notes:
+ * - Essential for good UX in custom dropdown components
+ * - Prevents memory leaks with cleanup function
+ * - Uses mousedown event for immediate response
+ * - Type assertions needed for event target
+ */
+
+/**
+ * 📛 Pattern: Controlled Component State Management
+ * 🧩 Purpose: Demonstrates proper state handling for complex select components
+ * 
+ * ⚙️ Implementation:
+ * - Separate state variables for different select types
+ * - String for single selection, array for multi-selection
+ * - Parent component controls all state changes
+ * 
+ * 🧪 Usage Example:
+ * ```tsx
+ * const [singleSelect, setSingleSelect] = useState('');
+ * const [multiSelect, setMultiSelect] = useState<string[]>([]);
+ * 
+ * // Add to multi-select
+ * const handleMultiAdd = (value: string) => {
+ *   if (!multiSelect.includes(value)) {
+ *     setMultiSelect([...multiSelect, value]);
+ *   }
+ * };
+ * 
+ * // Remove from multi-select
+ * const handleMultiRemove = (value: string) => {
+ *   setMultiSelect(multiSelect.filter(item => item !== value));
+ * };
+ * ```
+ * 
+ * 📌 Notes:
+ * - Immutable state updates for React optimization
+ * - Type safety with TypeScript generics
+ * - Validation logic can be easily added at state level
+ * - Supports complex selection scenarios
+ */
+
 export default SelectDropdownPage;

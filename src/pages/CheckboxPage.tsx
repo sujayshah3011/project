@@ -554,4 +554,213 @@ const CheckboxPage: React.FC = () => {
   );
 };
 
+// ===========================
+// DOCUMENTATION
+// ===========================
+
+/**
+ * COMPONENTS USED IN CHECKBOXPAGE
+ * 
+ * This page demonstrates various checkbox implementations including basic checkboxes,
+ * indeterminate states, checkbox groups, and different styling variations.
+ * All components are custom-built for consistent design system integration.
+ */
+
+/**
+ * 📛 Component: BasicCheckbox
+ * 🧩 Purpose: Core checkbox component with customizable states and styling
+ * 
+ * ⚙️ Props:
+ * - checked: boolean (required)
+ *   Current checked state of the checkbox
+ * 
+ * - onChange: (checked: boolean) => void (required)
+ *   Callback function called when checkbox state changes
+ * 
+ * - label: string (required)
+ *   Text label displayed next to the checkbox
+ * 
+ * - disabled?: boolean = false
+ *   Disables interaction and applies disabled styling
+ * 
+ * 🧪 Usage Examples:
+ * ```tsx
+ * // Basic checkbox
+ * <BasicCheckbox
+ *   checked={isChecked}
+ *   onChange={setIsChecked}
+ *   label="Accept terms and conditions"
+ * />
+ * 
+ * // Disabled checkbox
+ * <BasicCheckbox
+ *   checked={false}
+ *   onChange={() => {}}
+ *   label="Disabled option"
+ *   disabled={true}
+ * />
+ * ```
+ * 
+ * 📌 Notes:
+ * - Uses sr-only input for accessibility while providing custom styling
+ * - Purple color scheme matches design system
+ * - Hover states only apply when not disabled
+ * - Label clicking toggles checkbox state
+ * - Supports dark mode theming
+ */
+
+/**
+ * 📛 Component: IndeterminateCheckbox
+ * 🧩 Purpose: Checkbox that supports indeterminate state (partially checked)
+ * 
+ * ⚙️ Props:
+ * - checked: boolean (required)
+ *   Whether checkbox is fully checked
+ * 
+ * - indeterminate: boolean (required)
+ *   Whether checkbox is in indeterminate state (shows minus icon)
+ * 
+ * - onChange: (checked: boolean) => void (required)
+ *   Callback when checkbox state changes
+ * 
+ * - label: string (required)
+ *   Text label for the checkbox
+ * 
+ * 🧪 Usage Example:
+ * ```tsx
+ * <IndeterminateCheckbox
+ *   checked={allItemsSelected}
+ *   indeterminate={someItemsSelected}
+ *   onChange={handleSelectAll}
+ *   label="Select All"
+ * />
+ * ```
+ * 
+ * 📌 Notes:
+ * - Indeterminate state takes visual precedence over checked state
+ * - Commonly used for "select all" functionality
+ * - Minus icon indicates partial selection
+ * - Check icon indicates full selection
+ */
+
+/**
+ * 📛 Component: CheckboxGroup
+ * 🧩 Purpose: Manages multiple related checkboxes as a group
+ * 
+ * ⚙️ Props:
+ * - options: Array<{value: string, label: string, disabled?: boolean}> (required)
+ *   Array of checkbox options with metadata
+ * 
+ * - values: {[key: string]: boolean} (required)
+ *   Object mapping option values to their checked states
+ * 
+ * - onChange: (values: {[key: string]: boolean}) => void (required)
+ *   Callback with updated values object when any checkbox changes
+ * 
+ * - label: string (required)
+ *   Group label displayed above checkboxes
+ * 
+ * 🧪 Usage Example:
+ * ```tsx
+ * const [preferences, setPreferences] = useState({
+ *   email: true,
+ *   sms: false,
+ *   push: true
+ * });
+ * 
+ * <CheckboxGroup
+ *   label="Notification Preferences"
+ *   options={[
+ *     { value: 'email', label: 'Email notifications' },
+ *     { value: 'sms', label: 'SMS notifications' },
+ *     { value: 'push', label: 'Push notifications' }
+ *   ]}
+ *   values={preferences}
+ *   onChange={setPreferences}
+ * />
+ * ```
+ * 
+ * 📌 Notes:
+ * - Handles individual checkbox state management internally
+ * - Supports disabled individual options
+ * - Maintains consistent spacing and alignment
+ * - Integrates with parent component state management
+ */
+
+/**
+ * 📛 Icons: Check, Minus, Info, CheckCircle (from lucide-react)
+ * 🧩 Purpose: Provide visual indicators for various checkbox states and UI elements
+ * 
+ * ⚙️ Component Usage:
+ * - Check: Indicates checked state in checkboxes
+ * - Minus: Indicates indeterminate state
+ * - Info: Used for informational bullet points
+ * - CheckCircle: Used for feature/benefit listings
+ * 
+ * 🧪 Usage Examples:
+ * ```tsx
+ * // Inside checkbox
+ * {checked && <Check className="w-3 h-3" />}
+ * 
+ * // Indeterminate state
+ * {indeterminate && <Minus className="w-3 h-3" />}
+ * 
+ * // Information lists
+ * <Info className="w-4 h-4 text-blue-600 mr-2 mt-0.5 flex-shrink-0" />
+ * ```
+ * 
+ * 📌 Notes:
+ * - Consistent sizing: w-3 h-3 for checkbox icons, w-4 h-4 for list icons
+ * - Color coding: purple for interactive states, blue for info, green for features
+ * - flex-shrink-0 prevents icon distortion in flex layouts
+ */
+
+/**
+ * 📛 Pattern: State Management for Complex Checkboxes
+ * 🧩 Purpose: Demonstrates handling multiple checkbox states and indeterminate logic
+ * 
+ * ⚙️ Implementation:
+ * - Individual state for basic examples
+ * - Object state for grouped checkboxes
+ * - Computed indeterminate states based on child selections
+ * 
+ * 🧪 Usage Example:
+ * ```tsx
+ * const [groupState, setGroupState] = useState({
+ *   selectAll: false,
+ *   item1: true,
+ *   item2: false,
+ *   item3: true
+ * });
+ * 
+ * // Compute indeterminate state
+ * const selectedItems = Object.entries(groupState)
+ *   .filter(([key, value]) => key !== 'selectAll' && value)
+ *   .length;
+ * const totalItems = Object.keys(groupState).length - 1;
+ * const isIndeterminate = selectedItems > 0 && selectedItems < totalItems;
+ * ```
+ * 
+ * 📌 Notes:
+ * - Separates UI state from business logic
+ * - Handles parent-child checkbox relationships
+ * - Maintains consistency across complex checkbox interactions
+ * - Supports bulk operations (select all/none)
+ */
+
+/**
+ * 📛 Pattern: Clickable Wrapper for Disabled Checkboxes
+ * 🧩 Purpose: Enables demo functionality for disabled checkbox states
+ * 
+ * ⚙️ Implementation:
+ * - Wrapper div intercepts clicks on disabled checkboxes
+ * - Maintains visual disabled appearance
+ * - Opens modal for code inspection
+ * 
+ * 📌 Notes:
+ * - Similar pattern to buttons and inputs
+ * - Preserves accessibility semantics
+ * - Allows showcasing disabled states in component library
+ */
+
 export default CheckboxPage;

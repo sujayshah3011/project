@@ -526,4 +526,243 @@ const FileUploadPage: React.FC = () => {
   );
 };
 
+// ===========================
+// DOCUMENTATION
+// ===========================
+
+/**
+ * COMPONENTS USED IN FILEUPLOADPAGE
+ * 
+ * This page demonstrates various file upload implementations including basic file inputs,
+ * drag-and-drop functionality, multiple file handling, and different UI patterns.
+ * All components focus on accessibility and user experience best practices.
+ */
+
+/**
+ * 📛 Component: BasicFileUpload
+ * 🧩 Purpose: Core file upload component with click-to-select functionality
+ * 
+ * ⚙️ Props:
+ * - files: File[] (required)
+ *   Array of currently selected files
+ * 
+ * - onChange: (files: File[]) => void (required)
+ *   Callback function called when file selection changes
+ * 
+ * - accept?: string = "*"
+ *   File type filter (e.g., "image/*", ".pdf,.doc,.docx")
+ * 
+ * - multiple?: boolean = false
+ *   Whether to allow multiple file selection
+ * 
+ * - disabled?: boolean = false
+ *   Disables the file input and applies disabled styling
+ * 
+ * 🧪 Usage Examples:
+ * ```tsx
+ * // Single image upload
+ * <BasicFileUpload
+ *   files={selectedImages}
+ *   onChange={setSelectedImages}
+ *   accept="image/*"
+ *   multiple={false}
+ * />
+ * 
+ * // Multiple document upload
+ * <BasicFileUpload
+ *   files={documents}
+ *   onChange={setDocuments}
+ *   accept=".pdf,.doc,.docx"
+ *   multiple={true}
+ * />
+ * ```
+ * 
+ * 📌 Notes:
+ * - Hidden file input triggered by button click
+ * - File list display with removal functionality
+ * - File size formatting for user feedback
+ * - Icon indicators for upload state
+ * - Supports file type validation through accept attribute
+ * - Individual file removal without affecting others
+ */
+
+/**
+ * 📛 Component: DragDropUpload
+ * 🧩 Purpose: Enhanced file upload with drag-and-drop functionality
+ * 
+ * ⚙️ Props:
+ * - files: File[] (required)
+ *   Currently uploaded files
+ * 
+ * - onChange: (files: File[]) => void (required)
+ *   Callback for file changes
+ * 
+ * - accept?: string = "*"
+ *   Accepted file types
+ * 
+ * - multiple?: boolean = true
+ *   Allow multiple files
+ * 
+ * - maxSize?: number
+ *   Maximum file size in bytes
+ * 
+ * 🧪 Usage Example:
+ * ```tsx
+ * <DragDropUpload
+ *   files={uploadedFiles}
+ *   onChange={setUploadedFiles}
+ *   accept="image/*"
+ *   multiple={true}
+ *   maxSize={5 * 1024 * 1024} // 5MB
+ * />
+ * ```
+ * 
+ * 📌 Notes:
+ * - Visual feedback during drag operations
+ * - Supports both drag-drop and click-to-select
+ * - File validation (type and size)
+ * - Error handling for invalid files
+ * - Responsive design for different screen sizes
+ * - Accessible keyboard navigation
+ */
+
+/**
+ * 📛 Icons: Upload, File, X, Check, AlertCircle, Info (from lucide-react)
+ * 🧩 Purpose: Provide visual context and functionality for file operations
+ * 
+ * ⚙️ Component Usage:
+ * - Upload: Main upload indicator and button icon
+ * - File: Represents individual files in lists
+ * - X: Remove/delete functionality for files
+ * - Check: Success states and completed uploads
+ * - AlertCircle: Warning and error messages
+ * - Info: Helpful information and best practices
+ * 
+ * 🧪 Usage Examples:
+ * ```tsx
+ * // Upload button
+ * <Upload className="w-5 h-5 mr-2" />
+ * 
+ * // File list item
+ * <File className="w-4 h-4 text-gray-500 mr-2" />
+ * 
+ * // Remove file button
+ * <button onClick={() => removeFile(index)}>
+ *   <X className="w-4 h-4 hover:text-red-600" />
+ * </button>
+ * ```
+ * 
+ * 📌 Notes:
+ * - Consistent sizing for similar use cases
+ * - Color coding: gray for neutral, red for delete, green for success
+ * - Hover states improve interactivity
+ * - Proper spacing in lists and buttons
+ */
+
+/**
+ * 📛 Hook: useRef (for file input references)
+ * 🧩 Purpose: Manages file input element references for programmatic triggering
+ * 
+ * ⚙️ Implementation:
+ * - Creates references to hidden file input elements
+ * - Enables custom button clicks to trigger file selection
+ * - Maintains focus management and accessibility
+ * 
+ * 🧪 Usage Example:
+ * ```tsx
+ * const fileInputRef = useRef<HTMLInputElement>(null);
+ * 
+ * const handleButtonClick = () => {
+ *   fileInputRef.current?.click();
+ * };
+ * 
+ * return (
+ *   <>
+ *     <input
+ *       ref={fileInputRef}
+ *       type="file"
+ *       className="sr-only"
+ *       onChange={handleFileChange}
+ *     />
+ *     <button onClick={handleButtonClick}>
+ *       Choose Files
+ *     </button>
+ *   </>
+ * );
+ * ```
+ * 
+ * 📌 Notes:
+ * - Hidden input maintains native file dialog functionality
+ * - Custom UI provides consistent design system integration
+ * - Proper accessibility with screen reader support
+ * - Event delegation preserves native browser behavior
+ */
+
+/**
+ * 📛 Pattern: File State Management
+ * 🧩 Purpose: Handles complex file selection, validation, and removal scenarios
+ * 
+ * ⚙️ Implementation:
+ * - Array state for multiple files
+ * - File object manipulation for metadata
+ * - Validation logic for type and size
+ * - State updates for add/remove operations
+ * 
+ * 🧪 Usage Example:
+ * ```tsx
+ * const [files, setFiles] = useState<File[]>([]);
+ * 
+ * const handleFileAdd = (newFiles: File[]) => {
+ *   const validFiles = newFiles.filter(file => 
+ *     file.size <= maxSize && acceptedTypes.includes(file.type)
+ *   );
+ *   setFiles(prev => [...prev, ...validFiles]);
+ * };
+ * 
+ * const handleFileRemove = (index: number) => {
+ *   setFiles(prev => prev.filter((_, i) => i !== index));
+ * };
+ * ```
+ * 
+ * 📌 Notes:
+ * - Immutable state updates for React optimization
+ * - Client-side validation for immediate feedback
+ * - File metadata preservation for display and submission
+ * - Error handling for invalid file selections
+ */
+
+/**
+ * 📛 Pattern: Drag and Drop Event Handling
+ * 🧩 Purpose: Implements native HTML5 drag-and-drop API for file uploads
+ * 
+ * ⚙️ Implementation:
+ * - Event listeners for dragover, dragenter, dragleave, drop
+ * - State management for visual feedback
+ * - File extraction from DataTransfer object
+ * - Prevention of default browser behavior
+ * 
+ * 🧪 Usage Example:
+ * ```tsx
+ * const [isDragOver, setIsDragOver] = useState(false);
+ * 
+ * const handleDragOver = (e: React.DragEvent) => {
+ *   e.preventDefault();
+ *   setIsDragOver(true);
+ * };
+ * 
+ * const handleDrop = (e: React.DragEvent) => {
+ *   e.preventDefault();
+ *   setIsDragOver(false);
+ *   const droppedFiles = Array.from(e.dataTransfer.files);
+ *   onChange([...files, ...droppedFiles]);
+ * };
+ * ```
+ * 
+ * 📌 Notes:
+ * - preventDefault() essential for proper drop behavior
+ * - Visual feedback improves user experience
+ * - Works alongside traditional file input methods
+ * - Browser compatibility considerations for older browsers
+ */
+
 export default FileUploadPage;
