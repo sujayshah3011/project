@@ -124,7 +124,7 @@ const ButtonPage: React.FC = () => {
                 onClick={() => openModal(
                   'Primary Small Button',
                   <Button variant="primary" size="sm">Small</Button>,
-                  `<button style="display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; border-radius: 0.5rem; font-weight: 500; transition: all 0.2s; background-color: #7c3aed; color: white; padding: 0.375rem 0.75rem; font-size: 0.875rem; border: none; cursor: pointer;">Small</button>`,
+                  `<button style="display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; font-weight: 500; transition: all 0.2s; background-color: #7c3aed; color: white; padding: 0.375rem 0.75rem; font-size: 0.875rem; border: none; cursor: pointer;">Small</button>`,
                   `<Button variant="primary" size="sm">Small</Button>`
                 )}
               >

@@ -9,6 +9,9 @@ import StatusPage from './pages/StatusPage';
 import AvatarPage from './pages/AvatarPage';
 import NavigationPage from './pages/NavigationPage';
 import ColorsPage from './pages/ColorsPage';
+import PopupModalPage from './pages/PopupModalPage';
+import ModuleListingPage from './pages/ModuleListingPage';
+import AccordionPage from './pages/AccordionPage';
 import Overview from './pages/Overview';
 
 function App() {
@@ -25,6 +28,9 @@ function App() {
           <Route path="/avatar" element={<AvatarPage />} />
           <Route path="/navigation" element={<NavigationPage />} />
           <Route path="/colors" element={<ColorsPage />} />
+          <Route path="/modal" element={<PopupModalPage />} />
+          <Route path="/module-listing" element={<ModuleListingPage />} />
+          <Route path="/accordion" element={<AccordionPage />} />
         </Routes>
       </Layout>
     </Router>
