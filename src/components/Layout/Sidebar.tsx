@@ -52,6 +52,11 @@ const sidebarItems = [
     icon: Grid3x3 
   },
   { 
+    title: 'Notifications', 
+    path: '/notifications', 
+    icon: BarChart3 
+  },
+  { 
     title: 'Avatar', 
     path: '/avatar', 
     icon: User 

@@ -19,6 +19,7 @@ import SelectDropdownPage from './pages/SelectDropdownPage';
 import Overview from './pages/Overview';
 import DesignSystemPage from './pages/DesignSystemPage';
 import TablePage from './pages/TablePage';
+import NotificationPage from './pages/NotificationPage';
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
           <Route path="/select-dropdown" element={<SelectDropdownPage />} />
           <Route path="/design-system" element={<DesignSystemPage />} />
           <Route path="/table" element={<TablePage />} />
+          <Route path="/notifications" element={<NotificationPage />} />
         </Routes>
       </Layout>
     </Router>
