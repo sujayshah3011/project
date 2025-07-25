@@ -775,7 +775,7 @@ const AccordionPage: React.FC = () => {
       </section>
 
       {/* Usage Guidelines */}
-      <section>
+      {/* <section>
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Usage Guidelines</h2>
         <div className="bg-white dark:bg-gray-800 p-8 border border-gray-200 dark:border-gray-700">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -823,7 +823,7 @@ const AccordionPage: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Component Modal */}
       {selectedComponent && (
